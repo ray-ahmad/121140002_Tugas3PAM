@@ -36,6 +36,9 @@
         android:id="@+id/skillDetailFragment"
         android:name="com.example.tugas1pam.ui.skill_detail.SkillDetailFragment"
         android:label="SkillDetailFragment"
-        tools:layout="@layout/fragment_skill_detail"
-        />
+        tools:layout="@layout/fragment_skill_detail">
+        <argument
+            android:name="extra_name"
+            app:argType="string"/>
+    </fragment>
 </navigation>

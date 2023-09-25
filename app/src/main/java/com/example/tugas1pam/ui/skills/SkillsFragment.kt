@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
@@ -63,7 +64,8 @@ class SkillsFragment : Fragment() {
 
             override fun onItemClicked(data: Skills) {
 //                Toast.makeText(requireActivity(), "Bahasa: " + data.name, Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_nav_skills_to_skillDetailFragment)
+                val bundle = bundleOf("extra_name" to data.name)
+                findNavController().navigate(R.id.action_nav_skills_to_skillDetailFragment,bundle)
             }
         })
         binding.rvSkills.adapter = skillsAdapter

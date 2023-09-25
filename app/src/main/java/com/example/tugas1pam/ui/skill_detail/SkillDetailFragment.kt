@@ -10,7 +10,17 @@ import android.view.ViewGroup
 
 class SkillDetailFragment : Fragment() {
     private lateinit var binding: FragmentSkillDetailBinding
+    companion object {
+        var EXTRA_NAME = "extra_name"
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (arguments != null) {
+            val name = arguments?.getString(EXTRA_NAME)
+            binding.textSkillDetail.text= "Sekarang ada di fragment detail: $name"
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
