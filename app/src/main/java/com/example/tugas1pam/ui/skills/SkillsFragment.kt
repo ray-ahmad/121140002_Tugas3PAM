@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
@@ -19,6 +20,7 @@ import com.example.tugas1pam.Skills
 import com.example.tugas1pam.SkillsAdapter
 import com.example.tugas1pam.databinding.FragmentSkillsBinding
 import com.example.tugas1pam.ui.skill_detail.SkillDetailFragment
+import java.util.Locale
 
 class SkillsFragment : Fragment() {
     companion object{
@@ -47,16 +49,53 @@ class SkillsFragment : Fragment() {
         binding.rvSkills.setHasFixedSize(true)
         binding.rvSkills.layoutManager = LinearLayoutManager(context)
 
-        listSkills.add(Skills("HTML", "Lorem ipsum dolor sit amet consectetur adipisicing elit. A, adipisci."))
-        listSkills.add(Skills("CSS", "Lorem ipsum dolor sit amet consectetur adipisicing elit. A, adipisci."))
-        listSkills.add(Skills("PHP", "Lorem ipsum dolor sit amet consectetur adipisicing elit. A, adipisci."))
-        listSkills.add(Skills("Laravel", "Lorem ipsum dolor sit amet consectetur adipisicing elit. A, adipisci."))
-        listSkills.add(Skills("Python", "Lorem ipsum dolor sit amet consectetur adipisicing elit. A, adipisci."))
-        listSkills.add(Skills("C++", "Lorem ipsum dolor sit amet consectetur adipisicing elit. A, adipisci."))
-        listSkills.add(Skills("Kotlin", "Lorem ipsum dolor sit amet consectetur adipisicing elit. A, adipisci."))
+        listSkills.add(Skills("HTML", "Ini deskripsiHTML."))
+        listSkills.add(Skills("CSS", "Kalau ini deskripsiCSS."))
+        listSkills.add(Skills("PHP", "Nah ini deskripsiPHP."))
+        listSkills.add(Skills("Laravel", "Nah kalau ini deskripsiLaravel."))
+        listSkills.add(Skills("Python", "Yang ini deskripsiPython."))
+        listSkills.add(Skills("C++", "Yang ini baru deskripsiC++"))
+        listSkills.add(Skills("Kotlin", "Nah yang ini deskripsiKotlin."))
+        listSkills.add(Skills("Javascript", "Nah kalau yang ini deskripsiJavascript."))
+        listSkills.add(Skills("Bootstrap", "Ini baru deskripsiBootstrap."))
 
         val skillsAdapter = SkillsAdapter(listSkills)
 
+        binding.searchSkills.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                    val filteredList = ArrayList<Skills>()
+                    for (i in listSkills) {
+                        if (i.name?.lowercase(Locale.ROOT)?.contains(newText) == true
+                            ||
+                            i.desc?.lowercase(Locale.ROOT)?.contains(newText) == true) {
+                            filteredList.add(i)
+                        }
+                    }
+
+                    if (filteredList.isEmpty()) {
+                        binding.rvSkills.visibility = View.INVISIBLE
+                        binding.noResult.visibility = View.VISIBLE
+                        Toast.makeText(requireActivity(), "Tidak ada hasil.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        skillsAdapter.setFilteredList(filteredList)
+                        binding.rvSkills.visibility = View.VISIBLE
+                        binding.noResult.visibility = View.INVISIBLE
+                    }
+                }
+                else{
+                    binding.rvSkills.visibility = View.VISIBLE
+                    binding.noResult.visibility = View.INVISIBLE
+                }
+                return true
+            }
+
+        })
 
         skillsAdapter.setOnClickCallBack(object: SkillsAdapter.onClickCallBack{
             val skillDetail = SkillDetailFragment()
@@ -70,6 +109,11 @@ class SkillsFragment : Fragment() {
         })
         binding.rvSkills.adapter = skillsAdapter
         return root
+    }
+
+    private fun filterList(query: String?) {
+
+
     }
 
     override fun onDestroyView() {
