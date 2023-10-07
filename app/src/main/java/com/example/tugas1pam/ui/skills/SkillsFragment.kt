@@ -19,6 +19,7 @@ import com.example.tugas1pam.R
 import com.example.tugas1pam.Skills
 import com.example.tugas1pam.SkillsAdapter
 import com.example.tugas1pam.databinding.FragmentSkillsBinding
+import com.example.tugas1pam.helper.ConstraintUtil
 import com.example.tugas1pam.ui.skill_detail.SkillDetailFragment
 import java.util.Locale
 
@@ -39,25 +40,14 @@ class SkillsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val skillsViewModel =
-            ViewModelProvider(this).get(SkillsViewModel::class.java)
 
-//        bindingSkills =
         _binding = FragmentSkillsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         binding.rvSkills.setHasFixedSize(true)
         binding.rvSkills.layoutManager = LinearLayoutManager(context)
 
-        listSkills.add(Skills("HTML", "Ini deskripsiHTML."))
-        listSkills.add(Skills("CSS", "Kalau ini deskripsiCSS."))
-        listSkills.add(Skills("PHP", "Nah ini deskripsiPHP."))
-        listSkills.add(Skills("Laravel", "Nah kalau ini deskripsiLaravel."))
-        listSkills.add(Skills("Python", "Yang ini deskripsiPython."))
-        listSkills.add(Skills("C++", "Yang ini baru deskripsiC++"))
-        listSkills.add(Skills("Kotlin", "Nah yang ini deskripsiKotlin."))
-        listSkills.add(Skills("Javascript", "Nah kalau yang ini deskripsiJavascript."))
-        listSkills.add(Skills("Bootstrap", "Ini baru deskripsiBootstrap."))
+        listSkills.addAll(ConstraintUtil.getSkillsData(this))
 
         val skillsAdapter = SkillsAdapter(listSkills)
 
@@ -67,42 +57,14 @@ class SkillsFragment : Fragment() {
                 return false
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText != null) {
-                    val filteredList = ArrayList<Skills>()
-                    for (i in listSkills) {
-                        if (i.name?.lowercase(Locale.ROOT)?.contains(newText) == true
-                            ||
-                            i.desc?.lowercase(Locale.ROOT)?.contains(newText) == true) {
-                            filteredList.add(i)
-                        }
-                    }
-
-                    if (filteredList.isEmpty()) {
-                        binding.rvSkills.visibility = View.INVISIBLE
-                        binding.noResult.visibility = View.VISIBLE
-                        Toast.makeText(requireActivity(), "Tidak ada hasil.", Toast.LENGTH_SHORT).show()
-                    } else {
-                        skillsAdapter.setFilteredList(filteredList)
-                        binding.rvSkills.visibility = View.VISIBLE
-                        binding.noResult.visibility = View.INVISIBLE
-                    }
-                }
-                else{
-                    binding.rvSkills.visibility = View.VISIBLE
-                    binding.noResult.visibility = View.INVISIBLE
-                }
+            override fun onQueryTextChange(query: String?): Boolean {
+                startSearch(query, skillsAdapter)
                 return true
             }
-
         })
 
         skillsAdapter.setOnClickCallBack(object: SkillsAdapter.onClickCallBack{
-            val skillDetail = SkillDetailFragment()
-            val bundle = Bundle()
-
             override fun onItemClicked(data: Skills) {
-//                Toast.makeText(requireActivity(), "Bahasa: " + data.name, Toast.LENGTH_SHORT).show()
                 val bundle = bundleOf("extra_name" to data.name)
                 findNavController().navigate(R.id.action_nav_skills_to_skillDetailFragment,bundle)
             }
@@ -111,9 +73,31 @@ class SkillsFragment : Fragment() {
         return root
     }
 
-    private fun filterList(query: String?) {
+    private fun startSearch(query: String?, skillsAdapter: SkillsAdapter) {
+        if (query != null) {
+            val filteredList = ArrayList<Skills>()
+            for (i in listSkills) {
+                if (i.name?.lowercase(Locale.ROOT)?.contains(query) == true
+                    ||
+                    i.desc?.lowercase(Locale.ROOT)?.contains(query) == true) {
+                    filteredList.add(i)
+                }
+            }
 
-
+            if (filteredList.isEmpty()) {
+                binding.rvSkills.visibility = View.INVISIBLE
+                binding.noResult.visibility = View.VISIBLE
+                Toast.makeText(requireActivity(), "No result found.", Toast.LENGTH_SHORT).show()
+            } else {
+                skillsAdapter.setFilteredList(filteredList)
+                binding.rvSkills.visibility = View.VISIBLE
+                binding.noResult.visibility = View.INVISIBLE
+            }
+        }
+        else{
+            binding.rvSkills.visibility = View.VISIBLE
+            binding.noResult.visibility = View.INVISIBLE
+        }
     }
 
     override fun onDestroyView() {

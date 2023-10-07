@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="string_skills_name_array">
+        <item>@string/name_html</item>
+        <item>@string/name_css</item>
+        <item>@string/name_php</item>
+        <item>@string/name_laravel</item>
+        <item>@string/name_python</item>
+        <item>@string/name_cpp</item>
+        <item>@string/name_kotlin</item>
+        <item>@string/name_js</item>
+        <item>@string/name_bootstrap</item>
+        <item>@string/name_pygame</item>
+    </string-array>
+
+    <string-array name="string_skills_desc_array">
+        <item>@string/desc_html</item>
+        <item>@string/desc_css</item>
+        <item>@string/desc_php</item>
+        <item>@string/desc_laravel</item>
+        <item>@string/desc_python</item>
+        <item>@string/desc_cpp</item>
+        <item>@string/desc_kotlin</item>
+        <item>@string/desc_js</item>
+        <item>@string/desc_bootstrap</item>
+        <item>@string/desc_pygame</item>
+    </string-array>
+</resources>

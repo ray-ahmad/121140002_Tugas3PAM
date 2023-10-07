@@ -39,8 +39,5 @@ class SkillsAdapter(private var listData: ArrayList<Skills>): RecyclerView.Adapt
     interface onClickCallBack{
         fun onItemClicked(data: Skills)
     }
-//    class DataViewHolder(item: View) : RecyclerView.ViewHolder(item){
-//        val txtName: TextView = item.findViewById(R.id.txt_name)
-//        val txtDesc: TextView = item.findViewById(R.id.txt_desc)
-//    }
+
 }

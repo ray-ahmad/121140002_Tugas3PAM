@@ -18,7 +18,7 @@ class SkillDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (arguments != null) {
             val name = arguments?.getString(EXTRA_NAME)
-            binding.textSkillDetail.text= "Sekarang ada di fragment detail: $name"
+            binding.textSkillDetail.text= "You are on fragment detail of $name"
         }
     }
     override fun onCreateView(

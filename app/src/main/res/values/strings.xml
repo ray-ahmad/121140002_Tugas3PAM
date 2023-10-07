@@ -11,6 +11,31 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_skills">Skills</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="search_query_hint">Search here...</string>
+    <string name="search_no_result">No result found.</string>
+
+    <string name="name_html">HTML</string>
+    <string name="name_css">CSS</string>
+    <string name="name_php">PHP</string>
+    <string name="name_laravel">Laravel</string>
+    <string name="name_python">Python</string>
+    <string name="name_cpp">C++</string>
+    <string name="name_kotlin">Kotlin</string>
+    <string name="name_js">Javascript</string>
+    <string name="name_bootstrap">Bootstrap</string>
+    <string name="name_pygame">Pygame</string>
+    
+    <string name="desc_html">HTML is the standard markup language for Web pages. With HTML you can create your own Website.</string>
+    <string name="desc_css">CSS is the language we use to style an HTML document. CSS describes how HTML elements should be displayed.</string>
+    <string name="desc_php">PHP is a server scripting language, and a powerful tool for making dynamic and interactive Web pages.</string>
+    <string name="desc_laravel">Laravel is a popular fullstack MVC framework for building web apps with PHP.</string>
+    <string name="desc_python">Python is a popular programming language. Python can be used on a server to create web applications or to make your own game.</string>
+    <string name="desc_cpp">C++ is a popular programming language. C++ is used to create computer programs, and is one of the most used language in game development.</string>
+    <string name="desc_kotlin">Kotlin is a programming language that makes coding concise, cross-platform, and fun. It is Google\'s preferred language for Android app development.</string>
+    <string name="desc_js">JavaScript (JS) is a lightweight interpreted (or just-in-time compiled) programming language with first-class functions.</string>
+    <string name="desc_bootstrap">Bootstrap is a free front-end framework for faster and easier web development. Bootstrap includes HTML and CSS based design templates.</string>
+    <string name="desc_pygame">Pygame is a free and open-source cross-platform library for the development of multimedia applications like video games using Python.</string>
 </resources>
